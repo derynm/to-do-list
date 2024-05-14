@@ -1,12 +1,13 @@
-import NavBar from './components/NavBar';
+import Board from './components/Board'
+import NavBar from './components/NavBar'
 
 function App() {
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       <NavBar />
-      <p className="bg-red-500 text-2xl">HEllo World</p>
-    </>
-  );
+      <Board />
+    </div>
+  )
 }
 
-export default App;
+export default App

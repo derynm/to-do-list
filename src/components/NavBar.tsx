@@ -1,7 +1,7 @@
 export default function NavBar() {
   return (
-    <div className="bg-blue-500 text-white">
-      <p>To Do List</p>
-    </div>
-  );
+    <nav className="bg-slate-500 p-4 text-white">
+      <p className="text-2xl font-semibold">To Do List</p>
+    </nav>
+  )
 }
