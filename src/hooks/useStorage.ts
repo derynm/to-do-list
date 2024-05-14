@@ -1,11 +1,11 @@
-import { List } from '../types/index'
+import { ListTask } from '../types/index'
 
 const useStorage = () => {
-  const getData = (): List[] => {
+  const getData = (): ListTask[] => {
     return JSON.parse(localStorage.getItem('data') || '[]')
   }
 
-  const saveData = (data: List[]) => {
+  const saveData = (data: ListTask[]) => {
     localStorage.setItem('data', JSON.stringify(data))
   }
 

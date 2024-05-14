@@ -5,10 +5,10 @@ interface Task {
   status: string
 }
 
-interface List {
+interface ListTask {
   id: string
   name: string
   items: Task[]
 }
 
-export type { Task, List }
+export type { Task, ListTask }
