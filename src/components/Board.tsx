@@ -1,24 +1,24 @@
 import { useState } from 'react'
-import { DndContext } from '@dnd-kit/core'
-import { ListTask } from '../types'
+import { DndContext, DragEndEvent, Over } from '@dnd-kit/core'
+import { ListTask, Task } from '../types'
 import ListCard from './ListCard'
 
 function Board({ initialDataToDo }: { initialDataToDo: ListTask[] }) {
   const [dataToDo, setDataToDo] = useState(initialDataToDo)
 
-  const handleDrop = (event) => {
+  const handleDrop = (event: DragEndEvent) => {
     const { active, over } = event
 
-    if (over.id && active.data) {
-      const currentTask = active.data.current
-      currentTask.status = over.id
+    if ((over as Over).id && active.data) {
+      const currentTask: Task = active.data.current as Task
+      currentTask.status = (over as Over).id as string
 
       const newDataToDo = dataToDo.map((list) => ({
         ...list,
         items: list.items.filter((item) => item.id !== currentTask.id)
       }))
 
-      const newListIndex = newDataToDo.findIndex((list) => list.name === over.id)
+      const newListIndex = newDataToDo.findIndex((list) => list.name === (over as Over).id)
       if (newListIndex !== -1) {
         newDataToDo[newListIndex].items.push(currentTask)
         setDataToDo(newDataToDo)
