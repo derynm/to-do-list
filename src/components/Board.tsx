@@ -1,13 +1,18 @@
-import { DndContext } from '@dnd-kit/core'
+import { DndContext, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core'
 import ListCard from './ListCard'
 import useToDo from '../hooks/useToDo'
 
 function Board() {
   const { dataToDo, handleAddList, handleDrop } = useToDo()
 
+  const mouseSensor = useSensor(MouseSensor)
+  const touchSensor = useSensor(TouchSensor)
+
+  const sensors = useSensors(mouseSensor, touchSensor)
+
   return (
     <div className="flex w-full flex-1 snap-x gap-3 overflow-x-auto bg-slate-50 p-4">
-      <DndContext onDragEnd={handleDrop}>
+      <DndContext onDragEnd={handleDrop} sensors={sensors}>
         {dataToDo.map((list) => (
           <ListCard key={list.id} list={list} />
         ))}
