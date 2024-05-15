@@ -1,30 +1,10 @@
-import { useState } from 'react'
-import { DndContext, DragEndEvent, Over } from '@dnd-kit/core'
-import { ListTask, Task } from '../types'
+import { DndContext } from '@dnd-kit/core'
 import ListCard from './ListCard'
+import useToDo from '../hooks/useToDo'
 
-function Board({ initialDataToDo }: { initialDataToDo: ListTask[] }) {
-  const [dataToDo, setDataToDo] = useState(initialDataToDo)
+function Board() {
+  const { dataToDo, handleAddList, handleDrop } = useToDo()
 
-  const handleDrop = (event: DragEndEvent) => {
-    const { active, over } = event
-
-    if ((over as Over).id && active.data) {
-      const currentTask: Task = active.data.current as Task
-      currentTask.status = (over as Over).id as string
-
-      const newDataToDo = dataToDo.map((list) => ({
-        ...list,
-        items: list.items.filter((item) => item.id !== currentTask.id)
-      }))
-
-      const newListIndex = newDataToDo.findIndex((list) => list.name === (over as Over).id)
-      if (newListIndex !== -1) {
-        newDataToDo[newListIndex].items.push(currentTask)
-        setDataToDo(newDataToDo)
-      }
-    }
-  }
   return (
     <div className="flex w-full flex-1 snap-x gap-3 overflow-x-auto bg-slate-50 p-4">
       <DndContext onDragEnd={handleDrop}>
@@ -32,6 +12,18 @@ function Board({ initialDataToDo }: { initialDataToDo: ListTask[] }) {
           <ListCard key={list.id} list={list} />
         ))}
       </DndContext>
+      <div className=" h-fit w-full max-w-80 shrink-0 rounded-md bg-slate-800 p-2 text-white">
+        <form className="flex w-full gap-2" onSubmit={handleAddList}>
+          <input
+            type="text"
+            placeholder="Add List"
+            className="w-full rounded bg-slate-600 p-1"
+            required
+            name="new-list"
+          />
+          <button className="rounded bg-slate-500 p-1 text-sm">Add</button>
+        </form>
+      </div>
     </div>
   )
 }

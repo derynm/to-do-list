@@ -6,6 +6,7 @@ const useStorage = () => {
   }
 
   const saveData = (data: ListTask[]) => {
+    console.log(data)
     localStorage.setItem('data', JSON.stringify(data))
   }
 
