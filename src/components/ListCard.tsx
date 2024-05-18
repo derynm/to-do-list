@@ -1,12 +1,12 @@
 import { useDroppable } from '@dnd-kit/core'
 import CardTask from './CardTask'
-import { ListTask } from '../types/index'
+import { Task } from '../types/index'
 import useToDo from '../hooks/useToDo'
 
-function ListCard({ list }: { list: ListTask }) {
+function ListCard({ list, task }: { list: string; task: Task[] }) {
   const { setNodeRef } = useDroppable({
-    id: `${list.name}`,
-    data: list.items
+    id: list,
+    data: task
   })
 
   const { handleAddTask } = useToDo()
@@ -15,9 +15,9 @@ function ListCard({ list }: { list: ListTask }) {
     <div
       className="h-fit w-full max-w-80 shrink-0 snap-center rounded-lg bg-slate-400 p-2"
       ref={setNodeRef}>
-      <p className="text-lg font-semibold">{list.name}</p>
+      <p className="text-lg font-semibold">{list}</p>
       <div className="space-y-2">
-        {list.items.map((task) => (
+        {task.map((task) => (
           <CardTask key={task.id} task={task} />
         ))}
       </div>
