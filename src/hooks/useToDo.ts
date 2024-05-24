@@ -33,6 +33,7 @@ const useToDo = () => {
       description: '',
       status: list.trim()
     }
+    formNewTask.reset()
     saveData('data-to-do', [...dataToDo, newTask])
     setDataToDo(getData('data-to-do') as Task[])
   }
