@@ -36,6 +36,7 @@ const useToDo = () => {
     formNewTask.reset()
     saveData('data-to-do', [...dataToDo, newTask])
     setDataToDo(getData('data-to-do') as Task[])
+    window.location.reload()
   }
 
   const getDataToDoByStatus = (status: string): Task[] => {

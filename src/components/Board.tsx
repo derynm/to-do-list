@@ -1,13 +1,24 @@
 import { DndContext, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core'
 import ListCard from './ListCard'
 import useToDo from '../hooks/useToDo'
+
 // import { ListTask } from '../types'
 
 function Board() {
   const { dataList, getDataToDoByStatus, handleAddList, handleDrop } = useToDo()
 
-  const mouseSensor = useSensor(MouseSensor)
-  const touchSensor = useSensor(TouchSensor)
+  const mouseSensor = useSensor(MouseSensor, {
+    activationConstraint: {
+      delay: 250,
+      tolerance: 5
+    }
+  })
+  const touchSensor = useSensor(TouchSensor, {
+    activationConstraint: {
+      delay: 250,
+      tolerance: 5
+    }
+  })
 
   const sensors = useSensors(mouseSensor, touchSensor)
 
