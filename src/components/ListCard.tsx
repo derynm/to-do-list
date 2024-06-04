@@ -2,6 +2,8 @@ import { useDroppable } from '@dnd-kit/core'
 import CardTask from './CardTask'
 import { Task } from '../types/index'
 import useToDo from '../hooks/useToDo'
+import { useState } from 'react'
+import { LuPlusCircle } from 'react-icons/lu'
 
 function ListCard({ list, task }: { list: string; task: Task[] }) {
   const { setNodeRef } = useDroppable({
@@ -10,6 +12,7 @@ function ListCard({ list, task }: { list: string; task: Task[] }) {
   })
 
   const { handleAddTask } = useToDo()
+  const [isInputShow, setIsInputShow] = useState<boolean>(false)
 
   return (
     <div
@@ -22,16 +25,25 @@ function ListCard({ list, task }: { list: string; task: Task[] }) {
         ))}
       </div>
       <div className=" mt-5 h-fit w-full max-w-80 shrink-0 rounded-md text-white">
-        <form className="flex w-full gap-2" onSubmit={(event) => handleAddTask(event, list)}>
-          <input
-            type="text"
-            placeholder="Add Task"
-            className="w-full rounded bg-slate-600 p-1"
-            required
-            name="new-task"
-          />
-          <button className="rounded bg-slate-500 p-1 text-sm">Add</button>
-        </form>
+        {isInputShow ? (
+          <form className="flex w-full gap-2" onSubmit={(event) => handleAddTask(event, list)}>
+            <input
+              type="text"
+              placeholder="Add Task"
+              className="w-full rounded bg-slate-600 p-1"
+              required
+              name="new-task"
+            />
+            <button className="rounded bg-slate-500 p-1 text-sm">Add</button>
+          </form>
+        ) : (
+          <div
+            className="flex cursor-pointer items-center justify-between"
+            onClick={() => setIsInputShow(true)}>
+            <p>Add New Task</p>
+            <LuPlusCircle />
+          </div>
+        )}
       </div>
     </div>
   )

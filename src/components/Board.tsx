@@ -9,13 +9,13 @@ function Board() {
 
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
-      delay: 250,
+      delay: 50,
       tolerance: 5
     }
   })
   const touchSensor = useSensor(TouchSensor, {
     activationConstraint: {
-      delay: 250,
+      delay: 50,
       tolerance: 5
     }
   })
