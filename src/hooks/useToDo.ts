@@ -2,9 +2,11 @@ import { FormEvent, useState } from 'react'
 import { DragEndEvent, Over } from '@dnd-kit/core'
 import { Task } from '../types/index'
 import { useStorage } from './useStorage'
+import { useActivity } from './useActivity'
 
 export const useToDo = () => {
   const { getData, saveData } = useStorage()
+  const { createNewActivity } = useActivity()
   const [dataList, setDataList] = useState(getData('data-list') as string[])
   const [dataTask, setDataTask] = useState(getData('data-task') as Task[])
 
@@ -78,6 +80,15 @@ export const useToDo = () => {
 
     if ((over as Over).id && active.data) {
       const currentTask: Task = active.data.current as Task
+      if (currentTask.status !== (over as Over).id) {
+        createNewActivity(
+          'move',
+          currentTask.status,
+          (over as Over).id as string,
+          currentTask.title
+        )
+      }
+
       const newData = dataTask.map((task) => {
         if (task.id === currentTask.id) {
           task.status = (over as Over).id as string

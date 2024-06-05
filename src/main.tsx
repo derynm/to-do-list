@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Home } from './Home.tsx'
+import { Activity } from './Activity.tsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Layout } from './components/Layout.tsx'
 import './assets/css/index.css'
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />
+      },
+      {
+        path: '/activity',
+        element: <Activity />
       }
     ]
   }

@@ -11,4 +11,12 @@ interface List {
   items: Task[]
 }
 
-export type { Task, List }
+interface Activity {
+  id: number
+  action: string
+  from: string
+  to: string
+  task: string
+  time: string
+}
+export type { Task, List, Activity }
