@@ -40,6 +40,39 @@ export const useToDo = () => {
     return dataTask.filter((list) => list.status === status)
   }
 
+  const handleDeleteList = (listName: string) => {
+    const newList = dataList.filter((list) => list !== listName)
+    const newTask = dataTask.filter((task) => task.status !== listName)
+    saveData('data-task', newTask)
+    setDataTask(getData('data-task') as Task[])
+    saveData('data-list', newList)
+    setDataList(getData('data-list') as string[])
+    window.location.reload()
+  }
+
+  const handleDeleteTask = (id: number) => {
+    const newData = dataTask.filter((task) => task.id !== id)
+    saveData('data-task', newData)
+    setDataTask(getData('data-task') as Task[])
+  }
+
+  const handleEditTask = (event: FormEvent<HTMLFormElement>, task: Task) => {
+    event.preventDefault()
+
+    const formEditTask = event.target as HTMLFormElement
+    const formData = new FormData(formEditTask)
+    const newData = dataTask.map((data) => {
+      if (data.id === task.id) {
+        data.title = formData.get('title') as string
+        data.description = formData.get('description') as string
+      }
+      return data
+    })
+    saveData('data-task', newData)
+    setDataTask(getData('data-task') as Task[])
+    window.location.reload()
+  }
+
   const handleDrop = (event: DragEndEvent) => {
     const { active, over } = event
 
@@ -56,5 +89,15 @@ export const useToDo = () => {
     }
   }
 
-  return { dataList, dataTask, getDataTaskByStatus, handleAddList, handleAddTask, handleDrop }
+  return {
+    dataList,
+    dataTask,
+    getDataTaskByStatus,
+    handleAddList,
+    handleAddTask,
+    handleDeleteTask,
+    handleDeleteList,
+    handleEditTask,
+    handleDrop
+  }
 }
