@@ -1,9 +1,14 @@
+import { AiOutlineClose } from 'react-icons/ai'
+
 import { Task } from '../types/index'
 
-function ModalTask({ task, toggle }: { task: Task; toggle: () => void }) {
+export function ModalTask({ task, toggle }: { task: Task; toggle: () => void }) {
   return (
     <div className="absolute -top-2 left-0 flex min-h-screen w-full items-center justify-center bg-black bg-opacity-35">
       <div className="w-full max-w-96 shrink-0 rounded-lg bg-white p-4 text-black">
+        <div className="flex justify-end">
+          <AiOutlineClose onClick={() => toggle()} className="cursor-pointer" />
+        </div>
         <form className="space-y-3">
           <div className="flex flex-col gap-2">
             <label htmlFor="title" className="font-semibold">
@@ -14,7 +19,7 @@ function ModalTask({ task, toggle }: { task: Task; toggle: () => void }) {
               id="title"
               name="title"
               defaultValue={task.title}
-              className="rounded-lg border-2 border-white p-2 transition-all duration-300 hover:border-slate-200"
+              className="rounded-lg border-2 border-white p-2 transition-all duration-300 hover:border-slate-200 focus:bg-slate-300"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -26,16 +31,11 @@ function ModalTask({ task, toggle }: { task: Task; toggle: () => void }) {
               id="description"
               name="description"
               defaultValue={task.description}
-              className="rounded-lg border-2 border-white p-2 transition-all duration-300 hover:border-slate-200"
+              className="rounded-lg border-2 border-white p-2 transition-all duration-300 hover:border-slate-200 focus:bg-slate-300"
             />
           </div>
 
           <div className="flex justify-between">
-            <button
-              onClick={() => toggle()}
-              className="rounded-lg bg-red-600 px-4 py-2 font-semibold text-white">
-              Close
-            </button>
             <button
               type="submit"
               className="rounded-lg bg-green-600 px-4 py-2 font-semibold text-white">
@@ -47,5 +47,3 @@ function ModalTask({ task, toggle }: { task: Task; toggle: () => void }) {
     </div>
   )
 }
-
-export default ModalTask

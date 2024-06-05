@@ -1,11 +1,11 @@
 import { useDroppable } from '@dnd-kit/core'
-import CardTask from './CardTask'
+import { CardTask } from './CardTask'
 import { Task } from '../types/index'
-import useToDo from '../hooks/useToDo'
+import { useToDo } from '../hooks/useToDo'
 import { useState } from 'react'
 import { LuPlusCircle } from 'react-icons/lu'
 
-function ListCard({ list, task }: { list: string; task: Task[] }) {
+export function ListCard({ list, task }: { list: string; task: Task[] }) {
   const { setNodeRef } = useDroppable({
     id: list,
     data: task
@@ -48,5 +48,3 @@ function ListCard({ list, task }: { list: string; task: Task[] }) {
     </div>
   )
 }
-
-export default ListCard

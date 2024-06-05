@@ -1,11 +1,9 @@
 import { DndContext, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core'
-import ListCard from './ListCard'
-import useToDo from '../hooks/useToDo'
+import { ListCard } from './ListCard'
+import { useToDo } from '../hooks/useToDo'
 
-// import { ListTask } from '../types'
-
-function Board() {
-  const { dataList, getDataToDoByStatus, handleAddList, handleDrop } = useToDo()
+export function Board() {
+  const { dataList, getDataTaskByStatus, handleAddList, handleDrop } = useToDo()
 
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
@@ -26,7 +24,7 @@ function Board() {
     <div className="flex w-full flex-1 snap-x gap-3 overflow-x-auto bg-slate-50 p-4">
       <DndContext sensors={sensors} onDragEnd={handleDrop}>
         {dataList.map((list, index) => (
-          <ListCard key={index} list={list} task={getDataToDoByStatus(list)} />
+          <ListCard key={index} list={list} task={getDataTaskByStatus(list)} />
         ))}
       </DndContext>
       <div className=" h-fit w-full max-w-80 shrink-0 rounded-md bg-slate-800 p-2 text-white">
@@ -44,5 +42,3 @@ function Board() {
     </div>
   )
 }
-
-export default Board

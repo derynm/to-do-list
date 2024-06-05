@@ -1,11 +1,11 @@
 import { useDraggable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
 import { Task } from '../types/index'
-import ModalTask from './ModalTask'
+import { ModalTask } from './ModalTask'
 import { useState } from 'react'
 import { LuGripVertical } from 'react-icons/lu'
 
-function CardTask({ task }: { task: Task }) {
+export function CardTask({ task }: { task: Task }) {
   const { attributes, listeners, setNodeRef, transform, active } = useDraggable({
     id: task.id,
     data: task
@@ -36,5 +36,3 @@ function CardTask({ task }: { task: Task }) {
     </>
   )
 }
-
-export default CardTask

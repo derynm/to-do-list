@@ -1,6 +1,6 @@
 import { Task } from '../types/index'
 
-const useStorage = () => {
+export const useStorage = () => {
   const getData = (name: string): Task[] | string[] => {
     return JSON.parse(localStorage.getItem(name) || '[]')
   }
@@ -11,5 +11,3 @@ const useStorage = () => {
 
   return { getData, saveData }
 }
-
-export default useStorage
